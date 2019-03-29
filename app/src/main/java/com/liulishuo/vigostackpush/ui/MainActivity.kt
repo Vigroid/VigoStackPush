@@ -19,18 +19,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         button2.setOnClickListener {
-            subscribeCold()
+            subscribeHot()
         }
     }
 
-    private fun logInfo(info: String) {
-        Log.i("vigo", info)
+    private fun logInfo(info: String, tag: String = "abc") {
+        Log.i(tag, info)
     }
 
-    private fun subscribeCold(){
-        HotnColdObservaleDemo
+    private fun subscribeCold() {
+        val observable = HotnColdObservaleDemo
                 .getColdObservable()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { logInfo(it.toString()) }
+        observable.subscribe { logInfo(it.toString()) }
+        observable.subscribe { logInfo(it.toString(), "xyz") }
+    }
+
+    private fun subscribeHot() {
+        val observable = HotnColdObservaleDemo
+                .getHotObservable()
+        observable.connect()
+        observable.subscribe { logInfo(it.toString()) }
+        observable.subscribe { logInfo(it.toString(), "xyz") }
     }
 }
