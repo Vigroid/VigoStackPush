@@ -5,24 +5,39 @@ import android.os.Bundle
 import android.util.Log
 import com.liulishuo.vigostackpush.R
 import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.Callable
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
-    private val dataSource = listOf("1", "2", "3")
+
+    class MyCallable : Callable<String> {
+        override fun call(): String {
+            Thread.sleep(5000)
+            return "ojbk"
+        }
+
+    }
+
+    private val threadPool = Executors.newCachedThreadPool()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         start.setOnClickListener {
+            val stringFuture = threadPool.submit(MyCallable())
+
             Observable
-                    .fromIterable(dataSource)
-                    .subscribe({ s -> logInfo(s) }, {}, { logInfo("on completed") })
+                    .fromFuture(stringFuture, 2, TimeUnit.SECONDS)
+                    .subscribe({ s -> logInfo(s) }, { t -> logInfo(t.toString()) }, { logInfo("on completed") })
         }
     }
 
-    private fun logInfo(info: String, tag: String = "abc") {
+    private fun logInfo(info: String?, tag: String = "abc") {
         Log.i(tag, info)
     }
 }
