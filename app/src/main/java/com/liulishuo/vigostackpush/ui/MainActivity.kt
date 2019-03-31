@@ -16,9 +16,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         start.setOnClickListener {
+            val startTime = System.currentTimeMillis()
             Observable
-                    .range(0, 9)
-                    .repeatWhen { Observable.timer(10, TimeUnit.SECONDS) }
+                    .interval(500, TimeUnit.MILLISECONDS)
+                    .take(5)
+                    .repeatUntil { System.currentTimeMillis() - startTime > 5000 }
                     .subscribe({ s -> logInfo(s.toString()) }, { t -> logInfo(t.toString()) }, { logInfo("on completed") })
         }
     }
