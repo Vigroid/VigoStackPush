@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+    private val dataSource = listOf("1", "2", "3")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         start.setOnClickListener {
             Observable
-                    .just("1", "2", "3")
+                    .fromIterable(dataSource)
                     .subscribe({ s -> logInfo(s) }, {}, { logInfo("on completed") })
         }
     }
