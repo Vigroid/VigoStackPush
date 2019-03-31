@@ -6,6 +6,7 @@ import android.util.Log
 import com.liulishuo.vigostackpush.R
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,9 +17,9 @@ class MainActivity : AppCompatActivity() {
 
         start.setOnClickListener {
             Observable
-                    .just("heihei")
-                    .repeat(3)
-                    .subscribe({ s -> logInfo(s) }, { t -> logInfo(t.toString()) }, { logInfo("on completed") })
+                    .range(0, 9)
+                    .repeatWhen { Observable.timer(10, TimeUnit.SECONDS) }
+                    .subscribe({ s -> logInfo(s.toString()) }, { t -> logInfo(t.toString()) }, { logInfo("on completed") })
         }
     }
 
