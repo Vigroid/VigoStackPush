@@ -16,12 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         start.setOnClickListener {
             Observable
-                    .create<String> { emitter ->
-                        for (i in 1..10) {
-                            emitter.onNext("$i")
-                        }
-                        emitter.onComplete()
-                    }
+                    .just("1", "2", "3")
                     .subscribe({ s -> logInfo(s) }, {}, { logInfo("on completed") })
         }
     }
