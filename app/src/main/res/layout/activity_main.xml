@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Cold"/>
+        android:text="FlatMap"/>
 
     <Button
         android:id="@+id/button2"
@@ -21,14 +21,6 @@
         app:layout_constraintCircle="@id/button"
         app:layout_constraintCircleRadius="100dp"
         app:layout_constraintCircleAngle="90"
-        android:text="Hot"/>
-
-    <Button
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button2"
-        android:text="Start"/>
+        android:text="Map"/>
 
 </android.support.constraint.ConstraintLayout>
