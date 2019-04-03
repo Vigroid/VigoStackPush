@@ -1,11 +1,13 @@
 package com.liulishuo.vigostackpush.ui
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.liulishuo.vigostackpush.R
 import com.liulishuo.vigostackpush.rx.model.Addr
 import com.liulishuo.vigostackpush.rx.model.User
+import com.liulishuo.vigostackpush.webview.WebViewActivity
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -36,6 +38,10 @@ class MainActivity : AppCompatActivity() {
                             logInfo(addr.street)
                         }
                     }
+        }
+
+        btn_web.setOnClickListener {
+            startActivity(Intent(this@MainActivity, WebViewActivity::class.java))
         }
     }
 
