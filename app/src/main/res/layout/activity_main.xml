@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="FlatMap"/>
+        android:text="GroupBy"/>
 
     <Button
         android:id="@+id/button2"
@@ -21,7 +21,7 @@
         app:layout_constraintCircle="@id/button"
         app:layout_constraintCircleRadius="100dp"
         app:layout_constraintCircleAngle="90"
-        android:text="Map"/>
+        android:text="GroupBy Subscriber"/>
 
     <Button
         android:id="@+id/btn_web"

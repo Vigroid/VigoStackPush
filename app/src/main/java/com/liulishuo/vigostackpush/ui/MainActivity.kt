@@ -14,28 +14,26 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val userList = listOf(User("vigo", listOf(Addr("1 rd"), Addr("524 broadway"))), User("test", listOf(Addr("4 st"), Addr("666 ave"))))
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         button.setOnClickListener {
             Observable
-                    .fromIterable(userList)
-                    .flatMap { usr -> Observable.fromIterable(usr.addrs) }
-                    .subscribe { addr ->
-                        logInfo(addr.street)
-                    }
+                    .range(1, 8)
+                    .groupBy { return@groupBy if (it % 2 == 0) "奇数" else "偶数" }
+                    .subscribe { logInfo(it.key) }
         }
 
         button2.setOnClickListener {
             Observable
-                    .fromIterable(userList)
-                    .map { usr -> usr.addrs }
-                    .subscribe { addrs ->
-                        for (addr in addrs) {
-                            logInfo(addr.street)
+                    .range(1, 8)
+                    .groupBy { return@groupBy if (it % 2 == 0) "奇数" else "偶数" }
+                    .subscribe { newSource ->
+                        if (newSource.key == "奇数"){
+                            newSource.subscribe { logInfo("我是奇数欧 $it") }
+                        } else{
+                            newSource.subscribe { logInfo("我是偶数 $it", "xyz") }
                         }
                     }
         }
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun logInfo(info: String, tag: String = "abc") {
+    private fun logInfo(info: String?, tag: String = "abc") {
         Log.i(tag, info)
     }
 }
