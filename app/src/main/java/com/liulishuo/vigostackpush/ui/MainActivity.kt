@@ -18,14 +18,14 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             Observable
                     .intervalRange(0,10,1,1, TimeUnit.SECONDS)
-                    .take(5)
+                    .skip(5)
                     .subscribe {logInfo("$it")}
         }
 
         button2.setOnClickListener {
             Observable
                     .intervalRange(0,10,1,1, TimeUnit.SECONDS)
-                    .takeLast(3, TimeUnit.SECONDS)
+                    .skipLast(3, TimeUnit.SECONDS)
                     .subscribe {logInfo("$it")}
         }
     }
