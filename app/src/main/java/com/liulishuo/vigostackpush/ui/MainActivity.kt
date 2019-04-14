@@ -6,7 +6,6 @@ import android.util.Log
 import com.liulishuo.vigostackpush.R
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,18 +16,16 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             Observable
-                    .create<Int> {
-                        for (i in 1..10) {
-                            Thread.sleep(i * 100L)
-                            it.onNext(i)
-                        }
-                        it.onComplete()
-                    }
-                    .debounce(500, TimeUnit.MILLISECONDS)
+                    .empty<Int>()
+                    .defaultIfEmpty(8)
                     .subscribe { logInfo("$it") }
         }
 
         button2.setOnClickListener {
+            Observable
+                    .empty<Int>()
+                    .switchIfEmpty (Observable.just(1,2,3))
+                    .subscribe { logInfo("$it") }
         }
     }
 
