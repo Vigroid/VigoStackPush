@@ -17,23 +17,18 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             Observable
-                    .just(1, 2, 2, 3, 3, 4, 5, 1, 1, 9)
-                    .distinct()
+                    .create<Int> {
+                        for (i in 1..10) {
+                            Thread.sleep(i * 100L)
+                            it.onNext(i)
+                        }
+                        it.onComplete()
+                    }
+                    .debounce(500, TimeUnit.MILLISECONDS)
                     .subscribe { logInfo("$it") }
         }
 
         button2.setOnClickListener {
-            Observable
-                    .just(1, 2, 2, 3, 3, 4, 5, 1, 1, 9)
-                    .distinctUntilChanged()
-                    .subscribe { logInfo("$it") }
-        }
-
-        button3.setOnClickListener {
-            Observable
-                    .just(1, 2, 2, 3, 3, 4, 5, 1, 1, 9)
-                    .filter { num -> num >= 3 }
-                    .subscribe { logInfo("$it") }
         }
     }
 
