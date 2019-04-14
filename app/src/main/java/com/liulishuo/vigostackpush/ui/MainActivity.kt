@@ -6,6 +6,7 @@ import android.util.Log
 import com.liulishuo.vigostackpush.R
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,16 +17,16 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             Observable
-                    .range(1, 11)
-                    .first(1)
-                    .subscribe({logInfo(it.toString())},{})
+                    .intervalRange(0,10,1,1, TimeUnit.SECONDS)
+                    .take(5)
+                    .subscribe {logInfo("$it")}
         }
 
         button2.setOnClickListener {
             Observable
-                    .range(1, 11)
-                    .last(11)
-                    .subscribe({logInfo(it.toString())},{})
+                    .intervalRange(0,10,1,1, TimeUnit.SECONDS)
+                    .takeLast(3, TimeUnit.SECONDS)
+                    .subscribe {logInfo("$it")}
         }
     }
 
