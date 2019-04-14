@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="skip"/>
+        android:text="elementAt"/>
 
     <Button
         android:id="@+id/button2"
@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/button"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="skipLast"/>
+        android:text="ignoreElements"/>
 
 </android.support.constraint.ConstraintLayout>

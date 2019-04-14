@@ -17,16 +17,18 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             Observable
-                    .intervalRange(0,10,1,1, TimeUnit.SECONDS)
-                    .skip(5)
+                    .interval(500, TimeUnit.MILLISECONDS)
+                    .take(10)
+                    .elementAt(9)
                     .subscribe {logInfo("$it")}
         }
 
         button2.setOnClickListener {
             Observable
-                    .intervalRange(0,10,1,1, TimeUnit.SECONDS)
-                    .skipLast(3, TimeUnit.SECONDS)
-                    .subscribe {logInfo("$it")}
+                    .interval(500, TimeUnit.MILLISECONDS)
+                    .take(10)
+                    .ignoreElements()
+                    .subscribe{logInfo("completed")}
         }
     }
 
