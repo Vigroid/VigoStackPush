@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="debounce"/>
+        android:text="all"/>
 
     <Button
         android:id="@+id/button2"
@@ -21,6 +21,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/button"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        android:text="distinctUntilChange"/>
+        android:text="contains"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/button2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="amb"/>
 </android.support.constraint.ConstraintLayout>

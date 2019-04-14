@@ -17,18 +17,27 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             Observable
-                    .create<Int> {
-                        for (i in 1..10) {
-                            Thread.sleep(i * 100L)
-                            it.onNext(i)
-                        }
-                        it.onComplete()
-                    }
-                    .debounce(500, TimeUnit.MILLISECONDS)
-                    .subscribe { logInfo("$it") }
+                    .just(1, 2, 4, 6, 7, 8)
+                    .all { it < 10 }
+                    .subscribe({ logInfo("$it") }, {})
         }
 
         button2.setOnClickListener {
+            Observable
+                    .just(1, 2, 4, 6, 7, 8)
+                    .contains(7)
+                    .subscribe({ logInfo("$it") }, {})
+        }
+
+        button3.setOnClickListener {
+            Observable
+                    .ambArray(
+                            Observable
+                                    .just(1, 2, 3)
+                                    .delay(1, TimeUnit.SECONDS),
+                            Observable
+                                    .just(100, 200, 900))
+                    .subscribe { logInfo("$it") }
         }
     }
 
