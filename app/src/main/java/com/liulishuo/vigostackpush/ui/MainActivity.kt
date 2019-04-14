@@ -17,15 +17,13 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             Observable
                     .range(1, 11)
-                    .buffer(5)
-                    .subscribe { logInfo(it.toString()) }
+                    .window(2)
+                    .subscribe {
+                        logInfo("new observable")
+                        it.subscribe { logInfo(it.toString()) } }
         }
 
         button2.setOnClickListener {
-            Observable
-                    .range(1, 11)
-                    .buffer(5, 1)
-                    .subscribe { logInfo(it.toString()) }
         }
     }
 
