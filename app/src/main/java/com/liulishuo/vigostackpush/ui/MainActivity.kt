@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import com.liulishuo.vigostackpush.R
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,17 +16,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val source1 = Observable.intervalRange(0, 9, 0, 1, TimeUnit.SECONDS)
+        val source2 = Observable.intervalRange(100, 9, 1, 1, TimeUnit.SECONDS)
+
         button.setOnClickListener {
             Observable
-                    .empty<Int>()
-                    .defaultIfEmpty(8)
+                    .merge(source1, source2)
                     .subscribe { logInfo("$it") }
         }
 
         button2.setOnClickListener {
             Observable
-                    .empty<Int>()
-                    .switchIfEmpty (Observable.just(1,2,3))
+                    .zip(source1, source2,
+                            BiFunction<Long, Long, Long> { t1, t2 -> t1 + t2 })
                     .subscribe { logInfo("$it") }
         }
     }
