@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="join"/>
+        android:text="startWith"/>
 
     <Button
         android:id="@+id/button2"
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/button"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="combineLatest"/>
+        android:visibility="gone"
+        android:text="concat"/>
 
 </android.support.constraint.ConstraintLayout>
