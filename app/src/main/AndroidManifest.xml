@@ -20,6 +20,8 @@
         </activity>
 
         <activity android:name=".webview.WebViewActivity"/>
+        <activity android:name=".coroutine.CoroutineActivity"/>
+        <activity android:name=".rx.RxActivity"/>
     </application>
 
 </manifest>

@@ -8,27 +8,20 @@
     tools:layout_editor_absoluteY="81dp">
 
     <Button
-        android:id="@+id/btn_rx"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="rx"/>
+        android:text="startWith"/>
 
     <Button
-        android:id="@+id/btn_coroutine"
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/btn_rx"
+        app:layout_constraintStart_toEndOf="@id/button"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="coroutine"/>
-
-    <Button
-        android:id="@+id/btn_web"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/btn_coroutine"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="web"/>
+        android:visibility="gone"
+        android:text="concat"/>
 
 </android.support.constraint.ConstraintLayout>
