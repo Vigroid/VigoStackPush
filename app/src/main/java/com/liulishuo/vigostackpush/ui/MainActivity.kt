@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.liulishuo.vigostackpush.R
 import com.liulishuo.vigostackpush.coroutine.CoroutineActivity
+import com.liulishuo.vigostackpush.dialog.DialogActivity
 import com.liulishuo.vigostackpush.rx.RxActivity
 import com.liulishuo.vigostackpush.webview.WebViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,6 +27,10 @@ class MainActivity : AppCompatActivity() {
 
         btn_web.setOnClickListener {
             startActivity(Intent(this@MainActivity, WebViewActivity::class.java))
+        }
+
+        btn_dialog.setOnClickListener {
+            startActivity(Intent(this@MainActivity, DialogActivity::class.java))
         }
     }
 }

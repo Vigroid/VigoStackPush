@@ -20,7 +20,6 @@ class CoroutineActivity:Activity(){
                 logInfo("world!")
             }
             logInfo("Hello, ")
-            Thread.sleep(2000L)
         }
     }
 }

@@ -22,6 +22,7 @@
         <activity android:name=".webview.WebViewActivity"/>
         <activity android:name=".coroutine.CoroutineActivity"/>
         <activity android:name=".rx.RxActivity"/>
+        <activity android:name=".dialog.DialogActivity"/>
     </application>
 
 </manifest>
