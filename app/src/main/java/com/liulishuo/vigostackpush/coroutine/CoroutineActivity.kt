@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_coroutine.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 
 class CoroutineActivity:Activity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,9 +17,17 @@ class CoroutineActivity:Activity(){
 
         btn_test.setOnClickListener {
             GlobalScope.launch {
+                // 启动一个新协程并停滞一秒
                 delay(1000L)
-                logInfo("world!")
+                logInfo("world")
             }
+
+            thread {
+                // 启动一个新线程并停滞二秒
+                Thread.sleep(2000L)
+                logInfo("!")
+            }
+
             logInfo("Hello, ")
         }
     }
