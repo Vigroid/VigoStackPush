@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="backpressure error"/>
+        android:text="backpressure latest"/>
 
     <Button
         android:id="@+id/button2"

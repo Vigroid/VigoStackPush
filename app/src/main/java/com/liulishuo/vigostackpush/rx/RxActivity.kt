@@ -20,7 +20,7 @@ class RxActivity : Activity() {
                     for (i in 0..999) {
                         it.onNext(i)
                     }
-                }, BackpressureStrategy.ERROR)
+                }, BackpressureStrategy.LATEST)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
