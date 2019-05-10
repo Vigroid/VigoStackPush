@@ -16,7 +16,15 @@ class CoroutineActivity : Activity() {
         btn_test.setOnClickListener {
             runBlocking {
                 job = launch {
-                    repeat()
+                    try {
+                        repeat()
+                    } finally {
+                        withContext(NonCancellable) {
+                            logInfo("I am running finally")
+                            delay(1000)
+                            logInfo("I can't be cancelled")
+                        }
+                    }
                 }
                 delay(3000)
                 logInfo("yo")
