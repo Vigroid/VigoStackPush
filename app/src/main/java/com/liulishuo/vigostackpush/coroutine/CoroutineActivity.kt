@@ -17,15 +17,14 @@ class CoroutineActivity : Activity() {
         setContentView(R.layout.activity_coroutine)
 
         btn_test.setOnClickListener {
-            val job = GlobalScope.launch {
-                // 启动一个新协程并停滞一秒
-                delay(1000L)
-                logInfo("world")
-            }
             runBlocking {
+                launch {
+                    delay(1000)
+                    logInfo("World!")
+                }
                 logInfo("Hello, ")
-                //等待另一个协程的结果
-                job.join()
+                //在这里不需要job.join()或者是Thread.sleep()或是delay()，
+                // 因为runBlocking这个外部coroutineScope只有在内部所有coroutineScope都结束才结束。
             }
         }
     }
