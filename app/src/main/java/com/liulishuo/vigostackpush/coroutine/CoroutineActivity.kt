@@ -16,20 +16,16 @@ class CoroutineActivity : Activity() {
         btn_test.setOnClickListener {
             runBlocking {
                 launch {
-                    delay(200)
-                    logInfo("runblocking co1 -200")
+                    doWorld()
                 }
 
-                coroutineScope {
-                    launch {
-                        delay(500)
-                        logInfo("nested scope- co2 - 500 ")
-                    }
-                    logInfo("nested scope -0")
-                }
-                logInfo("runblocking")
+                logInfo("Hello")
             }
-            logInfo("runblocking over")
         }
+    }
+
+    suspend fun doWorld(){
+        delay(200)
+        logInfo("world")
     }
 }
