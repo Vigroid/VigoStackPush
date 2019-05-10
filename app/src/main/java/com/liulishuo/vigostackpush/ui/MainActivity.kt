@@ -1,10 +1,13 @@
 package com.liulishuo.vigostackpush.ui
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.liulishuo.vigostackpush.R
-import io.reactivex.Observable
+import com.liulishuo.vigostackpush.coroutine.CoroutineActivity
+import com.liulishuo.vigostackpush.dialog.DialogActivity
+import com.liulishuo.vigostackpush.rx.RxActivity
+import com.liulishuo.vigostackpush.webview.WebViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -14,22 +17,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button.setOnClickListener {
-            Observable
-                    .empty<Int>()
-                    .defaultIfEmpty(8)
-                    .subscribe { logInfo("$it") }
+        btn_rx.setOnClickListener {
+            startActivity(Intent(this@MainActivity, RxActivity::class.java))
         }
 
-        button2.setOnClickListener {
-            Observable
-                    .empty<Int>()
-                    .switchIfEmpty (Observable.just(1,2,3))
-                    .subscribe { logInfo("$it") }
+        btn_coroutine.setOnClickListener {
+            startActivity(Intent(this@MainActivity, CoroutineActivity::class.java))
         }
-    }
 
-    private fun logInfo(info: String?, tag: String = "abc") {
-        Log.i(tag, info)
+        btn_web.setOnClickListener {
+            startActivity(Intent(this@MainActivity, WebViewActivity::class.java))
+        }
+
+        btn_dialog.setOnClickListener {
+            startActivity(Intent(this@MainActivity, DialogActivity::class.java))
+        }
     }
 }
