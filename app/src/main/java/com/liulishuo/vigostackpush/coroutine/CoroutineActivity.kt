@@ -14,18 +14,17 @@ class CoroutineActivity : Activity() {
         setContentView(R.layout.activity_coroutine)
 
         btn_test.setOnClickListener {
-            runBlocking {
-                val time = measureTimeMillis {
-                    val one = async(start = CoroutineStart.LAZY) { function1() }
-                    val two = async(start = CoroutineStart.LAZY) { function2() }
+            val one = function1Async()
+            val two = function2Async()
 
-                    one.start()
-                    two.start()
+            val time = measureTimeMillis {
+                runBlocking {
                     logInfo("The answer is ${one.await() + two.await()}")
                 }
-                logInfo("time cost is $time")
             }
+            logInfo("time cost is $time")
         }
+
     }
 
     private suspend fun function1(): Int {
@@ -37,4 +36,13 @@ class CoroutineActivity : Activity() {
         delay(1000)
         return 29
     }
+
+    private fun function1Async() = GlobalScope.async {
+        function1()
+    }
+
+    private fun function2Async() = GlobalScope.async {
+        function2()
+    }
+
 }
