@@ -6,7 +6,6 @@ import com.liulishuo.core.logInfo
 import com.liulishuo.vigostackpush.R
 import kotlinx.android.synthetic.main.activity_coroutine.*
 import kotlinx.coroutines.*
-import kotlin.system.measureTimeMillis
 
 class CoroutineActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,15 +13,9 @@ class CoroutineActivity : Activity() {
         setContentView(R.layout.activity_coroutine)
 
         btn_test.setOnClickListener {
-            val one = function1Async()
-            val two = function2Async()
-
-            val time = measureTimeMillis {
-                runBlocking {
-                    logInfo("The answer is ${one.await() + two.await()}")
-                }
+            runBlocking {
+                logInfo("The answer is ${concurrentSum()}")
             }
-            logInfo("time cost is $time")
         }
 
     }
@@ -37,12 +30,11 @@ class CoroutineActivity : Activity() {
         return 29
     }
 
-    private fun function1Async() = GlobalScope.async {
-        function1()
-    }
+    private suspend fun concurrentSum(): Int = coroutineScope {
+        val one = async { function1() }
+        val two = async { function2() }
 
-    private fun function2Async() = GlobalScope.async {
-        function2()
+        one.await() + two.await()
     }
 
 }
