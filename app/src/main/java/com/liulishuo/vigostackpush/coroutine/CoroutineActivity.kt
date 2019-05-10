@@ -16,9 +16,9 @@ class CoroutineActivity : Activity() {
         btn_test.setOnClickListener {
             runBlocking {
                 val time = measureTimeMillis {
-                    val one = function1()
-                    val two = function2()
-                    logInfo("The answer is ${one+ two}")
+                    val one = async { function1() }
+                    val two = async { function2() }
+                    logInfo("The answer is ${one.await() + two.await()}")
                 }
                 logInfo("time cost is $time")
             }
