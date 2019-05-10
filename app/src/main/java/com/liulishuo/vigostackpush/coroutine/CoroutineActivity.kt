@@ -15,17 +15,14 @@ class CoroutineActivity : Activity() {
 
         btn_test.setOnClickListener {
             runBlocking {
-                launch {
-                    doWorld()
+                // coroutine十分轻量，同时开100_000个也没问题
+                repeat(100_000){
+                    launch {
+                        delay(1000)
+                        logInfo(".")
+                    }
                 }
-
-                logInfo("Hello")
             }
         }
-    }
-
-    suspend fun doWorld(){
-        delay(200)
-        logInfo("world")
     }
 }
