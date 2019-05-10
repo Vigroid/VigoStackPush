@@ -15,20 +15,10 @@ class CoroutineActivity : Activity() {
         var job: Job?
         btn_test.setOnClickListener {
             runBlocking {
-                job = launch {
-                    try {
-                        repeat()
-                    } finally {
-                        withContext(NonCancellable) {
-                            logInfo("I am running finally")
-                            delay(1000)
-                            logInfo("I can't be cancelled")
-                        }
-                    }
+                withTimeout(3000) {
+                    repeat()
                 }
-                delay(3000)
                 logInfo("yo")
-                job?.cancel()
             }
         }
     }
