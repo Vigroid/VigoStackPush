@@ -8,33 +8,34 @@ import kotlinx.android.synthetic.main.activity_coroutine.*
 import kotlinx.coroutines.*
 
 class CoroutineActivity : Activity() {
+    @UseExperimental(ObsoleteCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutine)
 
         btn_test.setOnClickListener {
             runBlocking {
-                logInfo("The answer is ${concurrentSum()}")
+                // will run block in main thread
+                launch {
+                    logInfo("main runBlocking      : I'm working in thread ${Thread.currentThread().name}")
+                }
+
+                // will run block in default thread, equals to GlobalScope.launch { ... }
+                launch(Dispatchers.Default) {
+                    logInfo("Default runBlocking      : I'm working in thread ${Thread.currentThread().name}")
+                }
+
+                // will run block in main thread
+                launch(Dispatchers.Unconfined) {
+                    logInfo("Unconfined runBlocking      : I'm working in thread ${Thread.currentThread().name}")
+                }
+
+                // will run in new thread
+                launch(newSingleThreadContext("vigroidThread")) {
+                    logInfo("newThread runBlocking      : I'm working in thread ${Thread.currentThread().name}")
+                }
             }
         }
 
     }
-
-    private suspend fun function1(): Int {
-        delay(1000)
-        return 13
-    }
-
-    private suspend fun function2(): Int {
-        delay(1000)
-        return 29
-    }
-
-    private suspend fun concurrentSum(): Int = coroutineScope {
-        val one = async { function1() }
-        val two = async { function2() }
-
-        one.await() + two.await()
-    }
-
 }
