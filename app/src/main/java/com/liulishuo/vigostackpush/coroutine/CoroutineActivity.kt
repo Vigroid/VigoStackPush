@@ -2,7 +2,6 @@ package com.liulishuo.vigostackpush.coroutine
 
 import android.app.Activity
 import android.os.Bundle
-import com.liulishuo.core.logInfo
 import com.liulishuo.vigostackpush.R
 import kotlinx.android.synthetic.main.activity_coroutine.*
 import kotlinx.coroutines.*
@@ -14,28 +13,20 @@ class CoroutineActivity : Activity() {
         setContentView(R.layout.activity_coroutine)
 
         btn_test.setOnClickListener {
-            runBlocking {
-                // will run block in main thread
-                launch {
-                    logInfo("main runBlocking      : I'm working in thread ${Thread.currentThread().name}")
-                }
-
-                // will run block in default thread, equals to GlobalScope.launch { ... }
-                launch(Dispatchers.Default) {
-                    logInfo("Default runBlocking      : I'm working in thread ${Thread.currentThread().name}")
-                }
-
-                // will run block in main thread
-                launch(Dispatchers.Unconfined) {
-                    logInfo("Unconfined runBlocking      : I'm working in thread ${Thread.currentThread().name}")
-                }
-
-                // will run in new thread
-                launch(newSingleThreadContext("vigroidThread")) {
-                    logInfo("newThread runBlocking      : I'm working in thread ${Thread.currentThread().name}")
+            newSingleThreadContext("Ctx1").use { ctx1 ->
+                newSingleThreadContext("Ctx2").use { ctx2 ->
+                    runBlocking(ctx1) {
+                        log("Started in ctx1, ${coroutineContext[Job]}")
+                        withContext(ctx2) {
+                            log("Working in ctx2, ${coroutineContext[Job]}")
+                        }
+                        log("Back to ctx1, ${coroutineContext[Job]}")
+                    }
                 }
             }
         }
 
     }
+
+    fun log(msg: String) = println("[${Thread.currentThread().name}] $msg")
 }
